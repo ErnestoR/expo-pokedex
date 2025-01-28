@@ -35,7 +35,7 @@ export default function TabTwoScreen() {
           Simple Pokedex API using Expo-go, tanstack-query and nativewind
         </Text>
       </View>
-      <Text>Built with ❤️.</Text>
+      <Text>Built with ❤️ by Ernesto </Text>
       <Collapsible title="Package.json">
         <ScrollView className="flex-1 bg-white gap-3 p-2 ">
           {Object.entries(packageJson.dependencies).map(([name, version]) => (

@@ -8,6 +8,7 @@ import {
 import { Image } from 'expo-image'
 import { Text } from 'react-native'
 import { Link } from 'expo-router'
+import * as Haptics from 'expo-haptics'
 
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 
@@ -83,8 +84,8 @@ export default function HomeScreen() {
         keyExtractor={(item) => item.url}
         renderItem={({ item, index }) => (
           <View className="bg-white border-4 border-gray-200 rounded-2xl m-4 shadow-lg">
-            <TouchableOpacity activeOpacity={0.5}>
-              <Link href={`(home)/details/${item.name}`}>
+            <Link href={`/details/${item.name}`} asChild>
+              <TouchableOpacity onPress={() => Haptics.selectionAsync()}>
                 <View className="flex flex-row items-center px-2 py-2 gap-6 ml-2">
                   <View className="bg-gray-100 rounded-full w-20 h-20 flex items-center justify-center  ">
                     <Image
@@ -108,8 +109,8 @@ export default function HomeScreen() {
                     </Text>
                   </View>
                 </View>
-              </Link>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            </Link>
           </View>
         )}
         onEndReached={() => {

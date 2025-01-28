@@ -252,6 +252,19 @@ export default function Details() {
             </Text>
           ))}
         </View>
+        <View className="w-full flex items-center justify-center">
+          <Image
+            source={{
+              uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${pokemonData.id}.gif`,
+            }}
+            style={{
+              height: 100,
+              aspectRatio: 0.7,
+            }}
+            contentFit="contain"
+            contentPosition="center"
+          />
+        </View>
       </View>
     </ParallaxScrollView>
   )
