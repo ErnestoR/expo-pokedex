@@ -1,5 +1,9 @@
 # Welcome to Trainer 👋
 
+<div style="text-align: center;">
+  <img src="./docs/demo.gif" alt="Demo" width="150">
+</div>
+
 Example pokedex app using Expo-go, tanstack-query and Nativewind.
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
