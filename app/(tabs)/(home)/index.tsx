@@ -3,9 +3,11 @@ import {
   StatusBar,
   VirtualizedList,
   ActivityIndicator,
+  TouchableOpacity,
 } from 'react-native'
 import { Image } from 'expo-image'
 import { Text } from 'react-native'
+import { Link } from 'expo-router'
 
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
 
@@ -64,10 +66,10 @@ export default function HomeScreen() {
 
   return (
     <View
-      className="flex flex-col gap-2 mt-12 flex-1 bg-white"
+      className="flex flex-col gap-2 flex-1 bg-white pt-14"
       style={{ marginTop: StatusBar.currentHeight || 0 }}
     >
-      <View className="flex flex-col gap-2 p-8 pt-16">
+      <View className="flex flex-col gap-2 p-8">
         <Text className="text-4xl ">Pokedex</Text>
         {/* <Text>
           Search for a Pokemon by name or using its National Pokemon number.
@@ -81,29 +83,33 @@ export default function HomeScreen() {
         keyExtractor={(item) => item.url}
         renderItem={({ item, index }) => (
           <View className="bg-white border-4 border-gray-200 rounded-2xl m-4 shadow-lg">
-            <View className="flex flex-row items-center px-2 py-2 gap-6 ml-2">
-              <View className="bg-gray-100 rounded-full w-20 h-20 flex items-center justify-center  ">
-                <Image
-                  source={{
-                    uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`,
-                  }}
-                  style={{
-                    width: '100%',
-                    aspectRatio: 1,
-                  }}
-                  contentFit="contain"
-                  contentPosition="center"
-                />
-              </View>
-              <View className="flex flex-row gap-2 justify-center items-center">
-                <Text className="text-gray-400 text-xl font-bold">
-                  #{(index + 1).toString().padStart(3, '0')}
-                </Text>
-                <Text className="text-black text-2xl font-bold">
-                  {item.name.toUpperCase()}
-                </Text>
-              </View>
-            </View>
+            <TouchableOpacity activeOpacity={0.5}>
+              <Link href={`(home)/details/${item.name}`}>
+                <View className="flex flex-row items-center px-2 py-2 gap-6 ml-2">
+                  <View className="bg-gray-100 rounded-full w-20 h-20 flex items-center justify-center  ">
+                    <Image
+                      source={{
+                        uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`,
+                      }}
+                      style={{
+                        width: '100%',
+                        aspectRatio: 1,
+                      }}
+                      contentFit="contain"
+                      contentPosition="center"
+                    />
+                  </View>
+                  <View className="flex flex-row gap-2 justify-center items-center">
+                    <Text className="text-gray-400 text-xl font-bold">
+                      #{(index + 1).toString().padStart(3, '0')}
+                    </Text>
+                    <Text className="text-black text-2xl font-bold">
+                      {item.name.toUpperCase()}
+                    </Text>
+                  </View>
+                </View>
+              </Link>
+            </TouchableOpacity>
           </View>
         )}
         onEndReached={() => {
