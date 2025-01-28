@@ -49,11 +49,18 @@ export default function HomeScreen() {
 
   return (
     <View
-      className="flex flex-col gap-2 flex-1 bg-white pt-14"
+      className="flex flex-col gap-2 flex-1 bg-neutral-50 dark:bg-slate-800 pt-14"
       style={{ marginTop: StatusBar.currentHeight || 0 }}
     >
-      <View className="flex flex-col gap-2 p-8">
-        <Text className="text-4xl">Pokedex</Text>
+      <View className="flex flex-col gap-2 p-4 relative  ">
+        <Text
+          className="text-5xl pt-8 text-slate-600 dark:text-neutral-100 tracking-[0.07em]"
+          style={{
+            fontFamily: 'PokemonSolid',
+          }}
+        >
+          Pokédex
+        </Text>
       </View>
       <VirtualizedList
         data={allPokemon}
@@ -62,7 +69,7 @@ export default function HomeScreen() {
         getItem={(data, index) => data[index]}
         keyExtractor={(item) => item.url}
         renderItem={({ item, index }) => (
-          <View className="bg-white border-4 border-gray-200 rounded-2xl m-4 shadow-lg">
+          <View className="bg-neutral-50 border-4 border-gray-200 rounded-2xl m-4 shadow-lg">
             <Link href={`/details/${item.name}`} asChild>
               <TouchableOpacity onPress={() => Haptics.selectionAsync()}>
                 <View className="flex flex-row items-center px-2 py-2 gap-6 ml-2">
@@ -83,8 +90,8 @@ export default function HomeScreen() {
                     <Text className="text-gray-400 text-xl font-bold">
                       #{(index + 1).toString().padStart(3, '0')}
                     </Text>
-                    <Text className="text-black text-2xl font-bold">
-                      {item.name.toUpperCase()}
+                    <Text className="text-gray-800 text-2xl font-semibold capitalize flex-1">
+                      {item.name}
                     </Text>
                   </View>
                 </View>

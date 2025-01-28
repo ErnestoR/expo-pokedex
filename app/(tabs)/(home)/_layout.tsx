@@ -1,11 +1,15 @@
+import { Colors } from '@/constants/Colors'
+import { useColorScheme } from '@/hooks/useColorScheme.web'
 import { Stack } from 'expo-router'
 
 export default function HomeLayout() {
+  const colorScheme = useColorScheme()
+
   return (
     <Stack
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#fff', // Tailwind: bg-blue-800
+          backgroundColor: Colors[colorScheme ?? 'light'].tint, // Tailwind: bg-blue-800
         },
         headerTitleStyle: {
           fontFamily: 'SpaceMono',
