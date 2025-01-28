@@ -11,19 +11,7 @@ import { Link } from 'expo-router'
 import * as Haptics from 'expo-haptics'
 
 import { useInfiniteQuery } from '@tanstack/react-query'
-
-const PAGE_SIZE = 50
-const API_URL = `https://pokeapi.co/api/v2/`
-
-type TGET_POKEMON = {
-  count: number
-  next: string | null
-  previous: string | null
-  results: {
-    name: string
-    url: string
-  }[]
-}
+import { fetchPokemons } from '@/api/pokemon'
 
 export default function HomeScreen() {
   const {
@@ -35,13 +23,7 @@ export default function HomeScreen() {
     hasNextPage,
   } = useInfiniteQuery({
     queryKey: ['pokemons'],
-    queryFn: async ({ pageParam }) => {
-      const response = await fetch(
-        `${API_URL}pokemon?limit=${PAGE_SIZE}&offset=${pageParam}`
-      )
-
-      return (await response.json()) as TGET_POKEMON
-    },
+    queryFn: fetchPokemons,
     initialPageParam: 0,
     getPreviousPageParam: (firstPage) => {
       if (!firstPage.previous) return undefined
@@ -71,10 +53,7 @@ export default function HomeScreen() {
       style={{ marginTop: StatusBar.currentHeight || 0 }}
     >
       <View className="flex flex-col gap-2 p-8">
-        <Text className="text-4xl ">Pokedex</Text>
-        {/* <Text>
-          Search for a Pokemon by name or using its National Pokemon number.
-        </Text> */}
+        <Text className="text-4xl">Pokedex</Text>
       </View>
       <VirtualizedList
         data={allPokemon}

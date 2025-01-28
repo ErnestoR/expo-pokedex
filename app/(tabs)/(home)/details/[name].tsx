@@ -5,6 +5,7 @@ import { Image } from 'expo-image'
 import { Stack, useLocalSearchParams } from 'expo-router'
 import { View, Text } from 'react-native'
 import config from '@/tailwind.config'
+import { fetchPokemon } from '@/api/pokemon'
 
 const pokemonColors = (config.theme?.extend?.colors as any)?.pokemon || {}
 
@@ -42,10 +43,9 @@ export default function Details() {
   const pokemonSpeciesQuery = useQuery({
     queryKey: ['pokemon-species', name],
     queryFn: async () => {
-      const response = await fetch(
-        `https://pokeapi.co/api/v2/pokemon-species/${name}`
-      )
-      return await response.json()
+      const data = await fetchPokemon(name as string)
+
+      return data
     },
   })
 
