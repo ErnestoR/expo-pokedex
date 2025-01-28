@@ -1,20 +1,10 @@
 import React from 'react'
 import ParallaxScrollView from '@/components/ParallaxScrollView'
-import { IconSymbol } from '@/components/ui/IconSymbol'
 import { useQuery } from '@tanstack/react-query'
 import { Image } from 'expo-image'
-import { Stack, useLocalSearchParams, useRouter } from 'expo-router'
-import {
-  View,
-  Text,
-  StyleSheet,
-  StatusBar,
-  TouchableOpacity,
-} from 'react-native'
+import { Stack, useLocalSearchParams } from 'expo-router'
+import { View, Text } from 'react-native'
 import config from '@/tailwind.config'
-
-import { useState, useEffect } from 'react'
-import { Audio, AVPlaybackStatus } from 'expo-av'
 
 const pokemonColors = (config.theme?.extend?.colors as any)?.pokemon || {}
 
@@ -40,7 +30,6 @@ const colorMap = {
 }
 
 export default function Details() {
-  const router = useRouter()
   const { name = '' } = useLocalSearchParams()
 
   const pokemonQuery = useQuery({
@@ -110,11 +99,7 @@ export default function Details() {
     )
   }
 
-  const OGG_URL =
-    'https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/132.ogg'
-
   const pokemonData = pokemonQuery.data
-  const paddedId = String(pokemonData.id).padStart(3, '0')
 
   const pokemonSpeciesData = pokemonSpeciesQuery.data
   const flavorTextEntries = pokemonSpeciesData.flavor_text_entries.filter(
@@ -160,15 +145,8 @@ export default function Details() {
                 }}
                 contentFit="contain"
                 contentPosition="center"
-
-                // className="absolute top-0 left-0 w-full h-full"
-                // className="border-4  "
               />
             </View>
-
-            {/* <View className="h-full bg-white/25 rounded-full flex items-center justify-center">
-
-            </View> */}
           </View>
         </View>
       }
@@ -182,16 +160,6 @@ export default function Details() {
               backgroundColor: pokemonColors.types[mainType], // Tailwind: bg-blue-800
             },
           }}
-          // screenOptions={{
-          //   headerStyle: {},
-          //   headerTitleStyle: {
-          //     fontFamily: 'SpaceMono',
-          //     fontSize: 24,
-          //     color: '#fff', // Tailwind: text-white
-          //   },
-          //   headerTintColor: '#f3f4f6', // Tailwind: text-gray-100
-          //   headerTitleAlign: 'center',
-          // }}
         />
         <View className="flex flex-row gap-4">
           {pokemonData.types.map((type: any) => (

@@ -10,7 +10,7 @@ import { Text } from 'react-native'
 import { Link } from 'expo-router'
 import * as Haptics from 'expo-haptics'
 
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 
 const PAGE_SIZE = 50
 const API_URL = `https://pokeapi.co/api/v2/`
@@ -19,10 +19,10 @@ type TGET_POKEMON = {
   count: number
   next: string | null
   previous: string | null
-  results: Array<{
+  results: {
     name: string
     url: string
-  }>
+  }[]
 }
 
 export default function HomeScreen() {
