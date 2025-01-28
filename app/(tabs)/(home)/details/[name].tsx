@@ -5,7 +5,7 @@ import { Image } from 'expo-image'
 import { Stack, useLocalSearchParams } from 'expo-router'
 import { View, Text } from 'react-native'
 import config from '@/tailwind.config'
-import { fetchPokemon } from '@/api/pokemon'
+import { fetchPokemon, fetchPokemonSpecies } from '@/api/pokemon'
 
 const pokemonColors = (config.theme?.extend?.colors as any)?.pokemon || {}
 
@@ -31,19 +31,22 @@ const colorMap = {
 }
 
 export default function Details() {
-  const { name = '' } = useLocalSearchParams()
+  const params = useLocalSearchParams()
+  const name = params.name || ''
+  const id = parseInt(params.id as string, 10) || 1
 
   const pokemonQuery = useQuery({
     queryKey: ['pokemon', name],
     queryFn: async () => {
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
-      return await response.json()
+      const data = await fetchPokemon(id)
+
+      return data
     },
   })
   const pokemonSpeciesQuery = useQuery({
-    queryKey: ['pokemon-species', name],
+    queryKey: ['pokemon-species', id],
     queryFn: async () => {
-      const data = await fetchPokemon(name as string)
+      const data = await fetchPokemonSpecies(id)
 
       return data
     },
@@ -94,6 +97,50 @@ export default function Details() {
             }}
           />
           <Text>Loading...</Text>
+        </View>
+      </ParallaxScrollView>
+    )
+  }
+
+  if (pokemonSpeciesQuery.isError || pokemonQuery.isError) {
+    return (
+      <ParallaxScrollView
+        headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
+        headerImage={
+          <View
+            className={`flex flex-1 w-full items-center bg-pokemon-types-normal`}
+          >
+            <View className="p-0">
+              <View className="opacity-25">
+                <Image
+                  source={{
+                    uri: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg',
+                  }}
+                  style={{
+                    width: 250,
+                    height: 250,
+                    position: 'absolute',
+                    left: 105,
+                    top: -15,
+                    transform: 'rotate(-15deg) scale(.8)',
+                  }}
+                />
+              </View>
+            </View>
+          </View>
+        }
+      >
+        <View className="flex flex-col rouded-t-3xl  flex-1 w-full px-4 gap-4 pb-16">
+          <Stack.Screen
+            options={{
+              title: capitalizedName || '',
+              headerShown: true,
+              headerStyle: {
+                backgroundColor: pokemonColors.types.normal,
+              },
+            }}
+          />
+          <Text>An Error occured please try again</Text>
         </View>
       </ParallaxScrollView>
     )

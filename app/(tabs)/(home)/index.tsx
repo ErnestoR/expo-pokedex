@@ -67,7 +67,13 @@ export default function HomeScreen() {
         keyExtractor={(item) => item.url}
         renderItem={({ item, index }) => (
           <View className="bg-neutral-50 border-4 border-gray-200 rounded-2xl m-4 shadow-lg">
-            <Link href={`/details/${item.name}`} asChild>
+            <Link
+              href={{
+                pathname: '/details/[name]',
+                params: { name: item.name, id: index + 1 },
+              }}
+              asChild
+            >
               <TouchableOpacity onPress={() => Haptics.selectionAsync()}>
                 <View className="flex flex-row items-center px-2 py-2 gap-6 ml-2">
                   <View className="bg-gray-100 rounded-full w-20 h-20 flex items-center justify-center">
