@@ -33,6 +33,21 @@ type TGET_POKEMON = {
       name: string
     }
   }[]
+  species: {
+    name: string
+    url: string
+  }
+  sprites: {
+    other: {
+      'official-artwork': {
+        front_default: string
+      }
+      showdown: {
+        front_default: string
+      }
+    }
+    front_default: string
+  }
 }
 
 type TGET_POKEMON_SPECIES = {

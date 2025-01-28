@@ -70,7 +70,10 @@ export default function HomeScreen() {
             <Link
               href={{
                 pathname: '/details/[name]',
-                params: { name: item.name, id: index + 1 },
+                params: {
+                  name: item.name,
+                  id: item.url.split('/').slice(-2)[0] || 1,
+                },
               }}
               asChild
             >

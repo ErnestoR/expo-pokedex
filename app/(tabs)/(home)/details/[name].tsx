@@ -46,10 +46,14 @@ export default function Details() {
   const pokemonSpeciesQuery = useQuery({
     queryKey: ['pokemon-species', id],
     queryFn: async () => {
+      const idString = pokemonQuery?.data?.species.url.split('/').slice(-2)[0]
+      const id = idString ? parseInt(idString, 10) : 1
+
       const data = await fetchPokemonSpecies(id)
 
       return data
     },
+    enabled: !!pokemonQuery.data,
   })
 
   const capitalizedName =
@@ -184,7 +188,7 @@ export default function Details() {
             <View className="bg-white/25 rounded-full border-4 border-white/25">
               <Image
                 source={{
-                  uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonData.id}.png`,
+                  uri: pokemonData.sprites.front_default,
                 }}
                 style={{
                   height: 200,
@@ -270,7 +274,7 @@ export default function Details() {
         <View className="w-full flex items-center justify-center">
           <Image
             source={{
-              uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${pokemonData.id}.gif`,
+              uri: pokemonData.sprites.other.showdown.front_default,
             }}
             style={{
               height: 100,
