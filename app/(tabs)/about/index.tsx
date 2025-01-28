@@ -29,12 +29,15 @@ export default function TabTwoScreen() {
         />
       }
     >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">About</ThemedText>
-      </ThemedView>
-      <ThemedText>Built with ❤️.</ThemedText>
+      <View className="flex gap-2 ">
+        <Text className="text-2xl ">About</Text>
+        <Text className="text-xl ">
+          Simple Pokedex API using Expo-go, tanstack-query and nativewind
+        </Text>
+      </View>
+      <Text>Built with ❤️.</Text>
       <Collapsible title="Package.json">
-        <ScrollView className="flex-1 ">
+        <ScrollView className="flex-1 bg-white gap-3 p-2 ">
           {Object.entries(packageJson.dependencies).map(([name, version]) => (
             <View
               key={name}
